@@ -1,0 +1,476 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "my-brand APIs",
+        "description": "APIs for my-brand project",
+        "contact": {
+            "email": "mukunzifabrice77@gmail.com"
+        },
+        "license": {
+            "name": "ISC"
+        }
+    },
+    "tags": [
+        {
+            "name": "Authentication",
+            "description": "Signup and Login"
+        },
+        {
+            "name": "Blogs",
+            "description": "Add blog, Read blogs, Update blog, delete blog or Read a single blog"
+        },
+        {
+            "name": "Messages",
+            "description": "Add, read or delete messages"
+        },
+        {
+            "name": "Comments",
+            "description": "Add and Read comments"
+        },
+        {
+            "name": "Likes",
+            "description": "Like or unlike a blog"
+        }
+    ],
+    "basePath": "/api/v1",
+    "schemes": [
+        "https",
+        "http"
+    ],
+    "paths": {
+        "/auth/signup": {
+            "post": {
+                "description": "Create an account",
+                "tags": [
+                    "Authentication"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "user",
+                        "description": "user email and password",
+                        "in": "body",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "email": {
+                                    "type": "string",
+                                    "example": "fabm@mail.com"
+                                },
+                                "password": {
+                                    "type": "string",
+                                    "example": "Fabm@123"
+                                }
+                            }
+                        },
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "500": {
+                        "description": "User already exists"
+                    }
+                }
+            }
+        },
+        "/auth/login": {
+            "post": {
+                "description": "Login with valid credentials",
+                "tags": [
+                    "Authentication"
+                ],
+                "parameters": [
+                    {
+                        "name": "user",
+                        "in": "body",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "email": {
+                                    "type": "string",
+                                    "example": "fabm@mail.com"
+                                },
+                                "password": {
+                                    "type": "string",
+                                    "example": "Fabm@123"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }},
+            "/blogs":{
+                "post":{
+                    "description":"Create a blog with valid details",
+                    "tags":["Blogs"],
+                    "consumes": [
+                        "multipart/form-data"
+                    ],
+                    "produces":[
+                        "application/json"
+                    ],
+                    "parameters":[
+                        {
+                            "name": "Authorization",
+                            "in": "header",
+                            "type": "string"
+                        },
+                        {
+                        "name":"title",
+                        "in":"formData",
+                        "type":"string",
+                        "required":true
+                    },
+                    {
+                        "name":"image",
+                        "in":"formData",
+                        "type":"file",
+                        "required":true
+                    },
+                    {
+                        "name":"content",
+                        "in":"formData",
+                        "type":"string",
+                        "required":true
+                    }],
+                    "responses": {
+                        "200": {
+                            "description": "OK"
+                        },
+                        "400": {
+                            "description": "Bad Request"
+                        }
+                    }
+                },
+                "get":{
+                    "description":"Read blogs",
+                    "tags":["Blogs"],
+                    "responses": {
+                        "200": {
+                            "description": "OK"
+                        },
+                        "400": {
+                            "description": "Bad Request"
+                        }
+                    }
+                }},
+            "/blogs/{id}":{
+                "get":{
+                    "description":"Read single blogs",
+                    "tags":["Blogs"],
+                    "parameters":[{
+                        "name":"id",
+                        "in": "path",
+                        "type":"string",
+                        "required": true
+                    }],
+                    "responses": {
+                        "200": {
+                            "description": "OK"
+                        },
+                        "400": {
+                            "description": "Bad Request"
+                        }
+                    }
+                },
+            "patch":{
+                    "description":"Update a blog",
+                    "tags":["Blogs"],
+                    "consumes":[
+                        "multipart/form-data"
+                    ],
+                    "produces":[
+                        "application/json"
+                    ],
+                    "parameters":[
+                        {
+                            "name": "Authorization",
+                            "in": "header",
+                            "type": "string",
+                            "required":true
+                        },
+                        {
+                        "name":"id",
+                        "in":"path",
+                        "type":"string",
+                        "required": true
+                    },{
+                    "name":"title",
+                    "in":"formData",
+                    "type":"string",
+                    "required":true
+                },
+                {
+                    "name":"image",
+                    "in":"formData",
+                    "type":"file",
+                    "required":true
+                },
+                {
+                    "name":"content",
+                    "in":"formData",
+                    "type":"string",
+                    "required":true
+                }],
+                    "responses": {
+                        "200": {
+                            "description": "OK"
+                        },
+                        "400": {
+                            "description": "Bad Request"
+                        }
+                    }
+                },
+            "delete":{
+                    "description":"Read single blogs",
+                    "tags":["Blogs"],
+                    "parameters":[
+                        {
+                            "name": "Authorization",
+                            "in": "header",
+                            "type": "string",
+                            "required":true
+                        },
+                        {
+                        "name":"id",
+                        "in":"path",
+                        "type":"string",
+                        "required": true
+                    }],
+                    "responses": {
+                        "200": {
+                            "description": "OK"
+                        },
+                        "400": {
+                            "description": "Bad Request"
+                        }
+                    }
+                }
+            },
+            "/messages":{
+                "post":{
+                    "description":"Add a message",
+                    "consumes":["application/json"],
+                    "produces":["application/json"],
+                    "tags":["Messages"],
+                    "parameters":[{
+                        "name":"create a message",
+                        "in":"body",
+                        "schema":{"type":"object",
+                        "properties": {
+                            "names": {
+                                "type": "string",
+                                "example": "Isaro Holliness"
+                            },
+                            "email": {
+                                "type": "string",
+                                "example": "munyanaholliness@gmail.com"
+                            },
+                            "phone": {
+                                "type": "string",
+                                "example": "+250780403244"
+                            },
+                            "message":{
+                                "type":"string",
+                                "example":"hi you did a great job"
+                            }
+                        },"required":true
+                    }
+                    }],
+                    "responses": {
+                        "200": {
+                            "description": "OK"
+                        },
+                        "400": {
+                            "description": "Bad Request"
+                        }
+                    }
+                },
+                "get":{
+                    "description":"Get messages",
+                    "tags":["Messages"],
+                    "parameters":[{
+                        "name": "Authorization",
+                        "in": "header",
+                        "type": "string",
+                        "required":true
+                    }],
+                    "responses": {
+                        "200": {
+                            "description": "OK"
+                        },
+                        "400": {
+                            "description": "Bad Request"
+                        }
+                    }
+                }
+            },
+            "/messages/{id}":{
+                "get":{
+                    "description":"Read a single message",
+                    "tags":["Messages"],
+                    "parameters":[
+                        {
+                            "name": "Authorization",
+                            "in": "header",
+                            "type": "string",
+                            "required":true
+                        },
+                        {
+                        "name":"id",
+                        "in":"path",
+                        "type":"string",
+                        "required": true
+                    }],
+                    "responses": {
+                        "200": {
+                            "description": "OK"
+                        },
+                        "400": {
+                            "description": "Bad Request"
+                        }
+                    }
+                },
+                "delete":{
+                    "description":"Delete a message",
+                    "tags":["Messages"],
+                    "parameters":[
+                        {
+                            "name": "Authorization",
+                            "in": "header",
+                            "type": "string",
+                            "required":true
+                        },
+                        {
+                        "name":"id",
+                        "in":"path",
+                        "type":"string",
+                        "required": true
+                    }],
+                    "responses": {
+                        "200": {
+                            "description": "OK"
+                        },
+                        "400": {
+                            "description": "Bad Request"
+                        }
+                    }
+                }
+            },
+            "/blogs/{id}/comments":{
+                "post":{
+                    "description":"Add a comment",
+                    "consumes":["application/json"],
+                    "produces":["application/json"],
+                    "tags":["Comments"],
+                    "parameters":[{
+                        "name":"id",
+                        "in":"path",
+                        "type":"string",
+                        "required": true
+                    },
+                {
+                    "name":"add a new comment to a blog",
+                    "in":"body",
+                    "schema":{"type":"object",
+                    "properties":{
+                        "names":{
+                            "type":"string",
+                            "example":"Vicky"
+                        },
+                        "comment":{
+                            "type":"string",
+                            "example":"hi"
+                        }
+                    }
+                }
+                }],
+                    "responses": {
+                        "200": {
+                            "description": "OK"
+                        },
+                        "400": {
+                            "description": "Bad Request"
+                        }
+                    }
+                },
+                "get":{
+                    "description":"Read comments",
+                    "tags":["Comments"],
+                    "parameters":[{
+                        "name":"id",
+                        "in":"path",
+                        "type":"string",
+                        "required": true
+                    }],
+                    "responses": {
+                        "200": {
+                            "description": "OK"
+                        },
+                        "400": {
+                            "description": "Bad Request"
+                        }
+                    }
+                }
+            },
+            "/blogs/{id}/addLike":{
+                "post":{
+                    "description":"Add like",
+                    "tags":["Likes"],
+                    "parameters":[{
+                        "name":"id",
+                        "in":"path",
+                        "type":"string",
+                        "required": true
+                    }],
+                    "responses": {
+                        "200": {
+                            "description": "OK"
+                        },
+                        "400": {
+                            "description": "Bad Request"
+                        }
+                    }
+                }
+            },
+            "/blogs/{id}/unlike":{
+                "post":{
+                    "description":"Unlike",
+                    "tags":["Likes"],
+                    "parameters":[{
+                        "name":"id",
+                        "in":"path",
+                        "type":"string",
+                        "required": true
+                    }],
+                    "responses": {
+                        "200": {
+                            "description": "OK"
+                        },
+                        "400": {
+                            "description": "Bad Request"
+                        }
+                    }
+                }
+            }
+    }}

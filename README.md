@@ -1,1 +1,2 @@
-# my-brand-backend
+[![CircleCI](https://dl.circleci.com/status-badge/img/gh/fabmukunzi/my-brand-backend/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/fabmukunzi/my-brand-backend/tree/main)
+[![Coverage Status](https://coveralls.io/repos/github/fabmukunzi/my-brand-backend/badge.svg?branch=main)](https://coveralls.io/github/fabmukunzi/my-brand-backend?branch=main)
